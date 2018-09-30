@@ -34,9 +34,11 @@ source myvenv/bin/activate
 pip install rasa_core
 ```
 
-- Instale o Rasa NLU
+- Instale o Rasa NLU e o Spacy
 ```
-pip install rasa_nlu[tensorflow]
+pip install rasa_nlu[spacy]
+python -m spacy download pt_core_web_md
+python -m spacy link pt_core_web_md en
 ```
 ## Rasa NLU
 
@@ -65,7 +67,6 @@ No arquivo de treino são colocados vários exemplos de entradas do usuário map
 ## intent:schedule
 - o que tem na python cerrado [hoje](day)
 - o que tem na python cerrado [amanhã](day)
-- o que tem na python cerrado dia [30](day)
 - o que tem na python cerrado dia [29](day)
 
 ## intent:bye
@@ -75,7 +76,35 @@ No arquivo de treino são colocados vários exemplos de entradas do usuário map
 
 O nome de uma intenção se inicia com "## intent:" e as possíveis entradas do usuário para essa intenção são descritas abaixo. A intenção `schedule` também utiliza entidades. O formato é [palavra] (nome_da_entidade), portanto, o exemplo de entrada do usuário é "o que tem na python cerrado hoje" e "hoje" é a entidade de nome "day".
 
-Agora vamos definir o pipeline a ser usado para treinar o modelo NLU, aqui usaremos o spacy para fazer isso.
+Para definir o pipeline a ser usado para treinar o modelo NLU, criaremos um arquivo yml com o seguinte conteúdo:
+
+```
+language: pt
+pipeline: "spacy_sklearn"
+```
+
+Execute o seguinte comando para treinar o modelo
+
+```
+python -m rasa_nlu.train -c nlu_config.yml --data nlu.md -o models --fixed_model_name nlu --project current --verbose
+```
+
+Crie o seguinte arquivo para testar o funcionamento do bot:
+
+
+```
+from rasa_nlu.model import Interpreter
+import json
+
+interpreter = Interpreter.load("./models/current/nlu")
+
+def ask_question(text):
+  result = interpreter.parse(text)
+  print(json.dumps(result, indent=2))
+
+ask_question("o que tem na python cerrado dia 29?")
+ask_question("o que tem na python cerrado dia 30?")
+```
 
 ### 
 
