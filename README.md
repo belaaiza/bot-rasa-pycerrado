@@ -164,6 +164,6 @@ Treine e execute com:
 
 ```
 ```
- python -m rasa_core.run -d models/dialogue
+ python -m rasa_core.run -d models/dialogue -u models/current/nlu
 
 ```
