@@ -151,9 +151,9 @@ Agora, crie um arquivo stories.md, onde serão colocados os exemplos de interaç
   - utter_greet
 * what
   - utter_what
-* utter_schedule_29{"day":"29"}
+* schedule{"day":"29"}
   - utter_schedule_29
-* utter_schedule_30{"day":"30"}
+* schedule{"day":"30"}
   - utter_schedule_30
 * bye               
   - utter_bye
