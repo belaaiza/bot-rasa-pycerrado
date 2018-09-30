@@ -37,8 +37,7 @@ pip install rasa_core
 - Instale o Rasa NLU e o Spacy
 ```
 pip install rasa_nlu[spacy]
-python -m spacy download pt_core_web_md
-python -m spacy link pt_core_web_md pt
+python -m spacy download pt
 ```
 ## Rasa NLU
 
