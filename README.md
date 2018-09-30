@@ -158,3 +158,12 @@ Agora, crie um arquivo stories.md, onde serão colocados os exemplos de interaç
 * bye               
   - utter_bye
 ```
+Treine e execute com:
+```
+ python -m rasa_core.train -d domain.yml -s stories.md -o models/dialogue
+
+```
+```
+ python -m rasa_core.run -d models/dialogue
+
+```
